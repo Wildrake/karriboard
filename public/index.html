@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+    <noscript>Your browser doesn't support JavaScript!</noscript>
+</head>
+<body>
+    <script>
+function v1(){
+    $.get( "http://localhost:8080/core/v1/get_content_threads?board=b", function(data) {
+        var x=JSON.parse(data);
+        console.log(x[0]);
+        var fulljs = "";
+        var body = document.getElementsByTagName('body')[0];
+        for(i=0;i<x.length;i++){
+            var table = document.createElement("table");
+            var tr = document.createElement("tr");
+            var th0 = document.createElement("th");
+            var th1 = document.createElement("th");
+            table.setAttribute("border", "1");
+            //table.setAttribute("cellspasing" "1");
+            th0.appendChild(document.createTextNode("Имя треда"));
+            th1.appendChild(document.createTextNode("Текст"));
+            tr.appendChild(th0);
+            tr.appendChild(th1);
+            table.appendChild(tr);
+            var tr = document.createElement("tr");
+            var td = document.createElement("td");
+            var td0 = document.createElement("td");
+            td0.appendChild(document.createTextNode(x[i]["thread_name"]));
+            tr.appendChild(td0);
+            td.appendChild(document.createTextNode(x[i]["thread_text"]));
+            tr.appendChild(td);
+            table.appendChild(tr);
+            body.appendChild(table);
+        }
+    });
+    return 0;
+}
+v1();
+    </script>
+</body>
+</html>
